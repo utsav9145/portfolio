@@ -261,3 +261,16 @@ html {
   text-align: right;
   width: 100%;
 }
+
+@media screen and (max-width: 640px) {
+  .card {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 13px 0px;
+    height: 650px;
+    position: relative;
+    width: 400px;
+    border-radius: 10px;
+    margin: 1.05rem;
+    overflow: hidden;
+    transition: 0.5s;
+  }
+}

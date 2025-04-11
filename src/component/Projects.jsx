@@ -30,7 +30,7 @@ const Projects = () => {
                     <p className="chakra-text css-9x44go">My Projects</p>
                 </div>
                 <div className="css-18g3eep">
-                    <h2 className="pl-[30px] font-bold sm:text-4xl sm:leading-[1.2] leading-[1.33] text-3xl text-[#ffffffeb]">
+                    <h2 className="sm:pl-[30px] font-bold sm:text-4xl sm:leading-[1.2] leading-[1.33] text-[20px] text-[#ffffffeb]">
                         <p className="chakra-text css-0">Here are some of My Projects</p>
                     </h2>
                 </div>

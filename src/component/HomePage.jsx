@@ -26,13 +26,11 @@ const HomePage = () => {
                             <Button className='btn' LinkComponent={'a'} target='_blank' href='https://drive.google.com/file/d/1_a1lF4pzD0wwrUsw-0Dgs1FZuxCSXwbg/view?usp=sharing' rel="noopener noreferrer">My Resume</Button>
                         </div>
                     </div>
-                    <div className="relative h-[350px] lg:w-1/2 w-full overflow-hidden rounded-2xl">
-                        <div className="absolute inset-0 z-0 bg-blur-animate" />
+                    <div className="h-[350px] lg:w-1/2 w-full overflow-hidden rounded-2xl">
                         <img
                             src={Avatars}
                             alt="avatars-image"
-                            className="relative z-10 object-center object-cover w-full h-full"
-                            style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
+                            className="z-10 object-center object-cover w-full h-full"
                         />
                     </div>
                 </div>

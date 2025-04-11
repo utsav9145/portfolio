@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Avatars from '../assets/avatars-icon.jpg'
+import Avatars1 from '../../favicon.svg'
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -55,7 +56,7 @@ const Navbar = () => {
                                 aria-haspopup="true"
                             >
                                 <span className="sr-only">Open user menu</span>
-                                <img className="size-8 rounded-full" src={Avatars} alt="avatar-image" />
+                                <img className="size-8 rounded-full" src={Avatars1} alt="avatar-image" />
                             </button>
 
                             {isUserMenuOpen && (

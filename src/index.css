@@ -57,6 +57,7 @@ html {
   color: black !important;
   padding: 8px 20px !important;
   border-radius: 999px !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
 .btn:hover {

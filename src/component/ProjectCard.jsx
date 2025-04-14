@@ -19,7 +19,7 @@ const ProjectCard = ({ image, title, description, techStack, link }) => {
                 <div className='flex justify-center items-center py-3'>
                     <Button
                         type="button"
-                        className="w-44 !rounded-2xl !bg-[#ffffff14] hover:!bg-[#e3dfdf59] !text-[#ffffffeb]"
+                        className="btn !bg-none !w-44 !rounded-2xl !bg-[#ffffff14] hover:!bg-[#e3dfdf59] !text-[#ffffffeb]"
                         LinkComponent={'a'}
                         target="_blank"
                         href={link}

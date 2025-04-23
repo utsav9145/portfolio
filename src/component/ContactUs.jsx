@@ -57,7 +57,7 @@ const ContactUs = () => {
                 <div className='flex justify-center flex-col gap-2.5 items-center'>
                     <p className='text-white font-medium text-3xl'>Let's Connect</p>
                     <input
-                        className='placeholder:text-gray-50/25 outline-none text-gray-50 p-3 h-12 rounded-xl sm:w-[400px] w-[290px] bg-black'
+                        className='placeholder:text-gray-50/25 outline-none text-gray-50 p-3 h-12 rounded-xl sm:w-[400px] w-[290px] bg-black focus:bg-gray-800'
                         placeholder='Name'
                         name='name'
                         value={form.name}
@@ -66,7 +66,7 @@ const ContactUs = () => {
                     {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
                     <input
-                        className='placeholder:text-gray-50/25 outline-none text-gray-50 p-3 h-12 rounded-xl sm:w-[400px] w-[290px] bg-black'
+                        className='placeholder:text-gray-50/25 outline-none text-gray-50 p-3 h-12 rounded-xl sm:w-[400px] w-[290px] bg-black focus:bg-gray-800'
                         placeholder='Email'
                         name='email'
                         value={form.email}
@@ -75,7 +75,7 @@ const ContactUs = () => {
                     {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
                     <textarea
-                        className='placeholder:text-gray-50/25 outline-none text-gray-50 p-3 rounded-xl sm:w-[400px] w-[290px] bg-black'
+                        className='placeholder:text-gray-50/25 outline-none text-gray-50 p-3 rounded-xl sm:w-[400px] w-[290px] bg-black focus:bg-gray-800'
                         rows='3'
                         placeholder='Message'
                         name='message'

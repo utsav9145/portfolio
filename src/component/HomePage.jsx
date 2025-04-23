@@ -23,7 +23,7 @@ const HomePage = () => {
                         </div>
                         <div className='flex gap-5 items-center'>
                             <Button className='btn' LinkComponent={'a'} href="#contact">Hire me</Button>
-                            <Button className='btn' LinkComponent={'a'} target='_blank' href='https://drive.google.com/file/d/1_a1lF4pzD0wwrUsw-0Dgs1FZuxCSXwbg/view?usp=sharing' rel="noopener noreferrer">My Resume</Button>
+                            <Button className='btn' LinkComponent={'a'} target='_blank' href='https://drive.google.com/file/d/1vl7Ul7dWN9jEzbJRcSLeRm4rpjozFwqy/view?usp=sharing' rel="noopener noreferrer">My Resume</Button>
                         </div>
                     </div>
                     <div className="h-[350px] lg:w-1/2 w-full overflow-hidden rounded-2xl">

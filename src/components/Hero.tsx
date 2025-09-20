@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowDown, Download, Mail } from 'lucide-react';
+import Avatars from '../assets/avatars-icon.png'
 
 const Hero = () => {
 
@@ -72,7 +73,7 @@ const Hero = () => {
             <div className="relative hover-scale">
               <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-2xl opacity-30 animate-glow" />
               <img
-                src="https://utsav-portfolio-eosin.vercel.app/assets/avatars-icon-quomEx8q.jpg"
+                src={Avatars}
                 alt="Utsav Mandani"
                 className="relative w-80 h-80 object-cover rounded-3xl shadow-elegant border border-primary/20 hover-glow transition-all duration-500"
               />

@@ -1,59 +1,53 @@
-import { Linkedin, Mail, Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { motion } from "framer-motion";
+import { Linkedin, Heart, Mail } from "lucide-react";
 
-const Footer = () => {
-  const socialLinks = [
-    {
-      icon: Mail,
-      href: "mailto:utsavmandani3@gmail.com",
-      label: "Email"
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/utsav-mandani-146840344?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-      label: "LinkedIn"
-    }
-  ];
+const socialLinks = [
+  { icon: Mail, href: "mailto:utsavmandani3@gmail.com", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/utsav-mandani-146840344?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", label: "LinkedIn" },
+];
 
+export const Footer = () => {
   return (
-    <footer className="py-12 border-t border-border/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <h3 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-              Utsav Mandani
-            </h3>
-            <p className="text-muted-foreground">
-              Frontend Developer • React.js
-            </p>
-          </div>
+    <footer className="py-8 border-t border-border">
+      <div className="container mx-auto px-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          {/* Logo */}
+          <motion.a
+            href="#home"
+            className="font-display text-xl font-bold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="text-foreground">Utsav</span>
+            <span className="text-gradient"> Mandani</span>
+          </motion.a>
 
+          {/* Social Links */}
           <div className="flex items-center gap-4">
-            {socialLinks.map((link) => (
-              <Button
-                key={link.label}
-                variant="outline"
-                size="icon"
-                className="border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
-                onClick={() => window.open(link.href, '_blank')}
+            {socialLinks.map((social, index) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -3 }}
+                className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                aria-label={social.label}
               >
-                <link.icon className="w-4 h-4" />
-                <span className="sr-only">{link.label}</span>
-              </Button>
+                <social.icon className="w-5 h-5" />
+              </motion.a>
             ))}
           </div>
-        </div>
 
-        <div className="mt-8 pt-8 border-t border-border/30 text-center">
-          <p className="text-muted-foreground flex items-center justify-center gap-2">
-            Made with <Heart className="w-4 h-4 text-primary" /> by Utsav Mandani
-            <span className="mx-2">•</span>
-            © 2024 All rights reserved.
-          </p>
+          {/* Copyright */}
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <span>Made with</span>
+            <Heart className="w-4 h-4 text-primary fill-primary" />
+            <span>by Utsav</span>
+          </div>
         </div>
       </div>
     </footer>
   );
 };
-
-export default Footer;

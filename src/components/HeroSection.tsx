@@ -1,12 +1,10 @@
-import { motion } from "framer-motion";
-import { Mail, FileDown } from "lucide-react";
-import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
-import avatars_icon from '../assets/avatars-icon.jpg';
+import { motion } from 'framer-motion';
+import { Mail, FileText, ChevronDown } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-const skills = ["React.js", "TypeScript", "Tailwind CSS", "Redux", "JavaScript (ES6+)"];
+const skills = ['React.js', 'TypeScript', 'Tailwind CSS', 'Redux', 'JavaScript (ES6+)'];
 
-export const HeroSection = () => {
+const HeroSection = () => {
   const [currentSkill, setCurrentSkill] = useState(0);
 
   useEffect(() => {
@@ -17,171 +15,155 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden lg:top-0 top-[77px]">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
-        <motion.div
-          className="absolute top-20 right-20 w-2 h-2 bg-primary rounded-full"
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.5, 1, 0.5],
-          }}
-          transition={{ duration: 3, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-40 left-20 w-3 h-3 bg-primary/60 rounded-full"
-          animate={{
-            y: [0, 20, 0],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{ duration: 4, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-primary/40 rounded-full"
-          animate={{
-            x: [0, 15, 0],
-            opacity: [0.4, 1, 0.4],
-          }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
-      </div>
+    <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-20">
+      {/* Floating Decorative Elements */}
+      <motion.div
+        animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-32 left-10 w-20 h-20 floating-shape hidden lg:block"
+        style={{ transform: 'rotate(45deg)' }}
+      />
+      <motion.div
+        animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-32 left-20 w-16 h-16 floating-shape hidden lg:block"
+      />
+      <motion.div
+        animate={{ y: [0, -15, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-40 right-1/4 w-3 h-3 bg-primary rounded-full hidden lg:block"
+      />
+      <motion.div
+        animate={{ y: [0, 15, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-40 right-10 w-4 h-4 bg-primary/50 rounded-full hidden lg:block"
+      />
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--border)/0.03)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border)/0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center lg:text-left"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glow-border mb-8"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-primary mb-6"
-            >
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              Frontend Developer
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6"
-            >
-              Hi, I'm{" "}
-              <span className="text-gradient">Utsav Mandani</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-muted-foreground text-lg sm:text-xl max-w-xl mx-auto lg:mx-0 mb-8"
-            >
-              A passionate Frontend Developer with 1+ year of hands-on experience
-              building modern web applications using React.js. I love creating clean,
-              responsive, and user-friendly interfaces.
-            </motion.p>
-
-            {/* Animated Skills */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-2 mb-10"
-            >
-              {skills.map((skill, index) => (
-                <motion.span
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${index === currentSkill
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
-                      : "glass-card text-muted-foreground"
-                    }`}
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4"
-            >
-              <Button variant="hero" size="lg" asChild data-magnetic>
-                <a href="#contact">
-                  <Mail className="mr-2 h-5 w-5" />
-                  Hire Me
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="lg" asChild data-magnetic>
-                <a href="https://drive.google.com/file/d/1vl7Ul7dWN9jEzbJRcSLeRm4rpjozFwqy/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                  <FileDown className="mr-2 h-5 w-5" />
-                  My Resume
-                </a>
-              </Button>
-            </motion.div>
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-2 h-2 bg-primary rounded-full"
+            />
+            <span className="text-sm text-muted-foreground">Frontend Developer</span>
           </motion.div>
 
-          {/* Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative flex justify-center lg:justify-end"
+          {/* Main Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
           >
-            <div className="relative">
-              {/* Glow effect behind image */}
-              <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-3xl transform scale-90" />
+            Hi, I'm{' '}
+            <motion.span 
+              className="gradient-text inline-block"
+              initial={{ opacity: 0, rotateX: 90 }}
+              animate={{ opacity: 1, rotateX: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              Utsav Mandani
+            </motion.span>
+          </motion.h1>
 
-              {/* Decorative border */}
-              <motion.div
-                className="absolute -inset-4 rounded-3xl border-gradient opacity-60"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
+          >
+            A passionate Frontend Developer with 1+ year of hands-on experience building modern web applications using React.js. I love creating clean, responsive, and user-friendly interfaces.
+          </motion.p>
 
-              {/* Main image container */}
-              <motion.div
-                className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden glass-card"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+          {/* Animated Skills */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-wrap justify-center gap-3 mb-10"
+          >
+            {skills.map((skill, index) => (
+              <motion.span
+                key={skill}
+                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 0.6 + index * 0.1, type: 'spring' }}
+                whileHover={{ scale: 1.1, y: -5 }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-default ${
+                  currentSkill === index
+                    ? 'bg-primary text-primary-foreground glow-border-strong'
+                    : 'bg-secondary text-secondary-foreground'
+                }`}
               >
-                <img
-                  src={avatars_icon}
-                  alt="Utsav Mandani"
-                  className="w-full h-full object-cover"
-                />
-
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-              </motion.div>
-
-              {/* Floating badges */}
-              <motion.div
-                className="absolute -top-4 -right-4 px-4 py-2 glass-card rounded-xl"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <span className="text-primary font-semibold">1+ Years</span>
-              </motion.div>
-            </div>
+                {skill}
+              </motion.span>
+            ))}
           </motion.div>
-        </div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-4"
+          >
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05, boxShadow: '0 0 30px hsl(180 100% 45% / 0.4)' }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold animate-pulse-glow"
+            >
+              <Mail size={18} />
+              Hire Me
+            </motion.a>
+            <motion.a
+              href="https://drive.google.com/file/d/1vl7Ul7dWN9jEzbJRcSLeRm4rpjozFwqy/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-8 py-4 glow-border rounded-lg font-semibold text-foreground hover:bg-secondary/50 transition-colors"
+            >
+              <FileText size={18} />
+              My Resume
+            </motion.a>
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <motion.a
+            href="#about"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+          >
+            <span className="text-xs">Scroll Down</span>
+            <ChevronDown size={20} />
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
 };
+
+export default HeroSection;

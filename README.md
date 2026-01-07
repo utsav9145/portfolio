@@ -27,7 +27,7 @@ The project is developed locally with a standard frontend workflow.
 ### Installation
 
 ```sh
-git clone https://github.com/utsav9145/portfolio.git
-cd portfolio
+git clone <https://github.com/utsav9145/portfolio.git>
+cd <portfolio>
 npm install
 ```

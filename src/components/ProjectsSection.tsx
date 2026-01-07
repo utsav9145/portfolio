@@ -3,8 +3,9 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
-import PPl_logo from '../assets/PPl-logo.png'
-import Enbiosis_logo from '../assets/enbiosis-logo.png'
+import PPl_logo from "../assets/PPl-logo.png";
+import Enbiosis_logo from "../assets/enbiosis-logo.png";
+import lion_vision_trust from "../assets/lion_vision_trust.png";
 
 const projects = [
   {
@@ -13,7 +14,13 @@ const projects = [
     description:
       "A comprehensive web and admin panel designed for managing lawyer-related data and services. Features include post scheduling, dashboard management, lawyer categorization, and automated client communication through contact forms.",
     image: PPl_logo,
-    technologies: ["React.js", "TypeScript", "Material UI", "Tailwind CSS", "jQuery"],
+    technologies: [
+      "React.js",
+      "TypeScript",
+      "Material UI",
+      "Tailwind CSS",
+      "jQuery",
+    ],
     liveUrl: "https://ppl-dot-able-bazaar-443904-k8.uc.r.appspot.com/",
   },
   {
@@ -25,6 +32,21 @@ const projects = [
     technologies: ["React.js", "JavaScript", "Bootstrap", "jQuery"],
     liveUrl: "https://app.enbiosis.com/",
   },
+  {
+    title: "Lion Vision Charitable Trust – NGO",
+    category: "Website & Admin Panel",
+    description:
+      "Designed and developed a complete NGO web solution including a public-facing website and a secure admin panel for Lion Vision Charitable Trust. The admin panel enables the organization to manage website content and donation-related data efficiently.",
+    image: lion_vision_trust,
+    technologies: [
+      "React.js",
+      "Tailwind CSS",
+      "React Router",
+      "Razorpay Payment Gateway",
+      "JavaScript (ES6)",
+    ],
+    liveUrl: "https://lionvisioncharitabletrust.com/",
+  },
 ];
 
 export const ProjectsSection = () => {
@@ -35,7 +57,7 @@ export const ProjectsSection = () => {
     <section id="projects" className="py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute bottom-0 left-0 w-1/2 h-full bg-gradient-to-r from-primary/5 to-transparent" />
-      
+
       <div className="container mx-auto px-6 relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -47,11 +69,11 @@ export const ProjectsSection = () => {
             Projects
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Featured{" "}
-            <span className="text-gradient">Projects</span>
+            Featured <span className="text-gradient">Projects</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Here are some of the projects I've worked on, showcasing my skills and experience
+            Here are some of the projects I've worked on, showcasing my skills
+            and experience
           </p>
         </motion.div>
 
@@ -104,8 +126,18 @@ export const ProjectsSection = () => {
                 </div>
 
                 {/* Actions */}
-                <Button variant="heroOutline" size="sm" className="group/btn" asChild data-magnetic>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="heroOutline"
+                  size="sm"
+                  className="group/btn"
+                  asChild
+                  data-magnetic
+                >
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Live Demo
                     <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </a>
@@ -122,7 +154,9 @@ export const ProjectsSection = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center mt-12"
         >
-          <p className="text-muted-foreground mb-4">Interested in seeing more of my work?</p>
+          <p className="text-muted-foreground mb-4">
+            Interested in seeing more of my work?
+          </p>
           <Button variant="hero" size="lg" className="group" data-magnetic>
             View All Projects
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

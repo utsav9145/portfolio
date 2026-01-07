@@ -17,7 +17,36 @@ const experiences = [
       "Optimizing applications for maximum speed and scalability",
       "Writing clean, maintainable code following industry best practices",
     ],
-    technologies: ["React.js", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS", "Material UI", "Redux", "jQuery"],
+    technologies: [
+      "React.js",
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "Tailwind CSS",
+      "Material UI",
+      "Redux",
+      "jQuery",
+    ],
+  },
+  {
+    title: "React.js Developer",
+    company: "Lion Vision Charitable Trust – NGO",
+    period: "May 2025 - June 2025",
+    description:
+      "Designed and developed a complete NGO web solution including a public-facing website and a secure admin panel for Lion Vision Charitable Trust. The admin panel enables the organization to manage website content and donation-related data efficiently.",
+    responsibilities: [
+      "Built a custom admin dashboard for content management",
+      "Managed NGO details, pages, and dynamic content",
+      "Viewed and managed donation/payment records",
+      "Integrated Razorpay donation data into admin panel",
+      "Implemented responsive and user-friendly Website UI",
+    ],
+    technologies: [
+      "React.js",
+      "Tailwind CSS",
+      "React Router",
+      "Razorpay Payment Gateway",
+      "JavaScript (ES6)",
+    ],
   },
 ];
 
@@ -29,7 +58,7 @@ export const ExperienceSection = () => {
     <section id="experience" className="py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--border)/0.03)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border)/0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
-      
+
       <div className="container mx-auto px-6 relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -53,16 +82,16 @@ export const ExperienceSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className="relative"
+              className={`relative mb-2.5 last:mb-0`}
             >
               {/* Timeline line */}
               <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent hidden md:block" />
-              
+
               {/* Experience card */}
               <div className="glass-card rounded-2xl p-6 sm:p-8 md:ml-20 relative group hover:border-primary/30 transition-colors">
                 {/* Timeline dot */}
                 <div className="absolute -left-[4.25rem] top-8 w-4 h-4 rounded-full bg-primary shadow-lg shadow-primary/50 hidden md:block" />
-                
+
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                   <div>

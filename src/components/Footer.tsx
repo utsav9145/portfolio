@@ -11,14 +11,14 @@ const socialLinks = [
 ];
 const Footer = () => {
   return (
-    <footer className="py-8 border-t border-border/50">
-      <div className="container mx-auto px-6">
+    <footer className="py-6 border-t border-border/50">
+      <div className="section-container">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Copyright */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-muted-foreground text-sm flex items-center gap-1"
+            className="text-muted-foreground text-xs flex items-center gap-1"
           >
             © {new Date().getFullYear()} Utsav Mandani. Made with{" "}
             <motion.span

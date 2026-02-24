@@ -7,7 +7,7 @@ const skills = [
   { name: "JavaScript", level: 92 },
   { name: "Tailwind CSS", level: 95 },
   { name: "Material UI", level: 80 },
-  { name: "jQuery", level: 70, },
+  { name: "jQuery", level: 70 },
   { name: "Git", level: 82 },
 ];
 
@@ -38,20 +38,20 @@ const SkillBar = ({
       transition={{ delay, duration: 0.5 }}
       className="group"
     >
-      <div className="flex justify-between mb-2">
-        <span className="font-medium group-hover:text-primary transition-colors">
+      <div className="flex justify-between mb-1.5">
+        <span className="text-sm font-medium group-hover:text-primary transition-colors">
           {name}
         </span>
         <motion.span
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : {}}
           transition={{ delay: delay + 0.5 }}
-          className="text-primary font-mono"
+          className="text-primary font-mono text-xs"
         >
           {width}%
         </motion.span>
       </div>
-      <div className="skill-bar">
+      <div className="skill-bar h-1.5">
         <motion.div
           className="skill-bar-fill"
           style={{ width: `${width}%` }}
@@ -81,7 +81,7 @@ const SkillsSection = () => {
         className="absolute -left-20 bottom-1/4 w-60 h-60 border border-primary/10 rounded-full"
       />
 
-      <div className="container mx-auto px-6 relative z-10" ref={ref}>
+      <div className="section-container relative z-10" ref={ref}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -89,19 +89,36 @@ const SkillsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Skills
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border-primary/20 mb-6"
+          >
+            <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
+            <span className="text-primary text-[10px] font-bold tracking-[0.25em] uppercase">
+              Technical Stack
+            </span>
+          </motion.div>
+
+          <h2 className="text-3xl font-extrabold mt-2 leading-tight tracking-tight">
             My Technical <span className="gradient-text">Skills</span>
           </h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+
+          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-base">
             Technologies I work with to bring ideas to life
           </p>
+
+          <motion.div
+            initial={{ width: 0 }}
+            animate={isVisible ? { width: 80 } : {}}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="h-1.5 bg-gradient-to-r from-primary/60 to-transparent rounded-full mx-auto mt-8"
+          />
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-x-8 gap-y-6">
           {skills.map((skill, index) => (
             <SkillBar
               key={skill.name}
@@ -118,12 +135,12 @@ const SkillsSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 1.2 }}
-          className="text-center mt-12"
+          className="text-center mt-10"
         >
           <motion.p
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="text-muted-foreground italic"
+            className="text-muted-foreground italic text-xs md:text-sm"
           >
             Always learning and exploring new technologies ✨
           </motion.p>

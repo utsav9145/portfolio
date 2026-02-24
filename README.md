@@ -1,4 +1,4 @@
-# 🚀 Utsav Mandani – Full-Stack Frontend Developer Portfolio
+# 🚀 Utsav Mandani – Frontend Developer Portfolio
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white" />

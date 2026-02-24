@@ -1,249 +1,64 @@
-// import { motion } from "framer-motion";
-// import { Briefcase, Calendar, ChevronRight } from "lucide-react";
-// import { useScrollReveal } from "@/hooks/useScrollReveal";
-
-// const experiences = [
-//   {
-//     company: "PAUL & PAUL LAWYERS",
-//     role: "React.js Developer",
-//     period: "Mar 2024 - Mar 2025",
-//     description:
-//       "Working with one of the most popular JavaScript libraries, React.js, along with its ecosystem. Developing new projects, working on front-end development, and maintaining and managing existing projects to ensure optimal performance and user experience.",
-//     responsibilities: [
-//       "Developing responsive web applications using React.js and modern JavaScript",
-//       "Implementing new features and maintaining existing codebase",
-//       "Collaborating with design and backend teams to deliver seamless user experiences",
-//       "Optimizing applications for maximum speed and scalability",
-//       "Writing clean, maintainable code following industry best practices",
-//     ],
-//     technologies: [
-//       "React.js",
-//       "TypeScript",
-//       "JavaScript (ES6+)",
-//       "Tailwind CSS",
-//       "Material UI",
-//       "Redux",
-//       "jQuery",
-//     ],
-//   },
-//   {
-//     company: "Lion Vision Charitable Trust – NGO",
-//     role: "React.js Developer",
-//     period: "May 2025 - June 2025",
-//     description:
-//       "Designed and developed a complete NGO web solution including a public-facing website and a secure admin panel for Lion Vision Charitable Trust. The admin panel enables the organization to manage website content and donation-related data efficiently.",
-//     responsibilities: [
-//       "Built a custom admin dashboard for content management",
-//       "Managed NGO details, pages, and dynamic content",
-//       "Viewed and managed donation/payment records",
-//       "Integrated Razorpay donation data into admin panel",
-//       "Implemented responsive and user-friendly Website UI",
-//     ],
-//     technologies: [
-//       "React.js",
-//       "Tailwind CSS",
-//       "React Router",
-//       "Razorpay Payment Gateway",
-//       "JavaScript (ES6)",
-//     ],
-//   },
-// ];
-
-// const ExperienceSection = () => {
-//   const { ref, isVisible } = useScrollReveal(0.1);
-
-//   return (
-//     <section id="experience" className="py-20 relative overflow-hidden">
-//       <div className="container mx-auto px-6" ref={ref}>
-//         {/* Section Header */}
-//         <motion.div
-//           initial={{ opacity: 0, y: 40 }}
-//           animate={isVisible ? { opacity: 1, y: 0 } : {}}
-//           transition={{ duration: 0.6 }}
-//           className="text-center mb-16"
-//         >
-//           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-//             Experience
-//           </span>
-//           <h2 className="text-3xl md:text-4xl font-bold mt-3">
-//             Building modern web applications and solving{" "}
-//             <span className="gradient-text">real-world problems</span>
-//           </h2>
-//         </motion.div>
-
-//         {/* Experience Timeline */}
-//         <div className="max-w-4xl mx-auto relative">
-//           {/* Timeline Line */}
-//           <motion.div
-//             initial={{ height: 0 }}
-//             animate={isVisible ? { height: "100%" } : {}}
-//             transition={{ duration: 1.5, delay: 0.3 }}
-//             className="absolute left-0 md:left-1/2 top-0 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent hidden md:block"
-//             style={{ transform: "translateX(-50%)" }}
-//           />
-
-//           {experiences.map((exp, index) => (
-//             <motion.div
-//               key={exp.company}
-//               initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-//               animate={isVisible ? { opacity: 1, x: 0 } : {}}
-//               transition={{ delay: 0.4 + index * 0.2, duration: 0.6 }}
-//               className={`relative mb-12 md:w-1/2 ${
-//                 index % 2 === 0
-//                   ? "md:pr-12 md:text-right"
-//                   : "md:pl-12 md:ml-auto"
-//               }`}
-//             >
-//               {/* Timeline Dot */}
-//               <motion.div
-//                 initial={{ scale: 0 }}
-//                 animate={isVisible ? { scale: 1 } : {}}
-//                 transition={{ delay: 0.6 + index * 0.2, type: "spring" }}
-//                 className={`absolute top-0 w-4 h-4 bg-primary rounded-full hidden md:block ${
-//                   index % 2 === 0 ? "-right-2" : "-left-2"
-//                 }`}
-//                 style={{ boxShadow: "0 0 20px hsl(180 100% 45% / 0.5)" }}
-//               />
-
-//               {/* Card */}
-//               <motion.div
-//                 whileHover={{
-//                   y: -5,
-//                   boxShadow: "0 0 30px hsl(180 100% 45% / 0.2)",
-//                 }}
-//                 className="glass-card rounded-xl p-6 hover-glow transition-all duration-300"
-//               >
-//                 {/* Header */}
-//                 <div
-//                   className={`flex items-start gap-4 mb-4 ${
-//                     index % 2 === 0 ? "md:flex-row-reverse" : ""
-//                   }`}
-//                 >
-//                   <motion.div
-//                     whileHover={{ rotate: 360 }}
-//                     transition={{ duration: 0.5 }}
-//                     className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"
-//                   >
-//                     <Briefcase className="text-primary" size={24} />
-//                   </motion.div>
-//                   <div className={index % 2 === 0 ? "md:text-right" : ""}>
-//                     <h3 className="font-bold text-lg gradient-text">
-//                       {exp.company}
-//                     </h3>
-//                     <p className="text-foreground font-medium">{exp.role}</p>
-//                     <div className="flex items-center gap-2 text-muted-foreground text-sm mt-1">
-//                       <Calendar size={14} />
-//                       <span>{exp.period}</span>
-//                     </div>
-//                   </div>
-//                 </div>
-
-//                 {/* Description */}
-//                 <p className="text-muted-foreground text-sm mb-4">
-//                   {exp.description}
-//                 </p>
-
-//                 {/* Responsibilities */}
-//                 <div className="mb-4">
-//                   <h4 className="font-semibold text-sm mb-2">
-//                     Key Responsibilities
-//                   </h4>
-//                   <ul className="space-y-2">
-//                     {exp.responsibilities.slice(0, 3).map((resp, i) => (
-//                       <motion.li
-//                         key={i}
-//                         initial={{ opacity: 0, x: -10 }}
-//                         animate={isVisible ? { opacity: 1, x: 0 } : {}}
-//                         transition={{ delay: 0.8 + index * 0.2 + i * 0.1 }}
-//                         className={`flex items-start gap-2 text-sm text-muted-foreground ${
-//                           index % 2 === 0
-//                             ? "md:flex-row-reverse md:text-right"
-//                             : ""
-//                         }`}
-//                       >
-//                         <ChevronRight
-//                           className="text-primary flex-shrink-0 mt-0.5"
-//                           size={14}
-//                         />
-//                         <span>{resp}</span>
-//                       </motion.li>
-//                     ))}
-//                   </ul>
-//                 </div>
-
-//                 {/* Technologies */}
-//                 <div className="flex flex-wrap gap-2">
-//                   {exp.technologies.map((tech, i) => (
-//                     <motion.span
-//                       key={tech}
-//                       initial={{ opacity: 0, scale: 0.8 }}
-//                       animate={isVisible ? { opacity: 1, scale: 1 } : {}}
-//                       transition={{ delay: 1 + index * 0.2 + i * 0.05 }}
-//                       whileHover={{ scale: 1.1 }}
-//                       className="px-3 py-1 text-xs bg-secondary rounded-full text-secondary-foreground"
-//                     >
-//                       {tech}
-//                     </motion.span>
-//                   ))}
-//                 </div>
-//               </motion.div>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default ExperienceSection;
-
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Calendar, Building2, ChevronDown } from "lucide-react";
+import {
+  Calendar,
+  Building2,
+  ChevronDown,
+  MapPin,
+  Briefcase,
+} from "lucide-react";
+import React from "react";
 
 const experiences = [
   {
-    company: "PAUL & PAUL LAWYERS",
+    company: "Codebuzz Infotech",
     role: "React.js Developer",
-    period: "Mar 2024 - Mar 2025",
+    employmentType: "Full Time",
+    period: "April 2025 - Present",
+    location: "India",
     description:
-      "Working with one of the most popular JavaScript libraries, React.js, along with its ecosystem. Developing new projects, working on front-end development, and maintaining and managing existing projects to ensure optimal performance and user experience.",
+      "Developing scalable admin dashboards and secure role-based systems for enterprise applications.",
     responsibilities: [
-      "Developing responsive web applications using React.js and modern JavaScript",
-      "Implementing new features and maintaining existing codebase",
-      "Collaborating with design and backend teams to deliver seamless user experiences",
-      "Optimizing applications for maximum speed and scalability",
-      "Writing clean, maintainable code following industry best practices",
+      "Designed and implemented Role-Based Access Control (RBAC) system separating SuperAdmin and Admin portals",
+      "Built complex dynamic multi-step forms with advanced validation logic",
+      "Implemented secure JWT authentication, OTP verification, and password workflows",
+      "Integrated PDF export functionality using @react-pdf/renderer",
+      "Optimized global state management using Redux Toolkit and Redux Persist",
     ],
     technologies: [
       "React.js",
-      "TypeScript",
-      "JavaScript (ES6+)",
-      "Tailwind CSS",
-      "Material UI",
-      "Redux",
-      "jQuery",
+      "Redux Toolkit",
+      "Vite",
+      "Bootstrap 5",
+      "Styled Components",
+      "Axios",
+      "Framer Motion",
+      "React-PDF",
     ],
   },
   {
-    company: "Lion Vision Charitable Trust – NGO",
-    role: "React.js Developer",
-    period: "May 2025 - June 2025",
+    company: "IGEEK TECH",
+    role: "Frontend Developer",
+    employmentType: "Full Time",
+    period: "March 2024 - March 2025",
+    location: "India",
     description:
-      "Designed and developed a complete NGO web solution including a public-facing website and a secure admin panel for Lion Vision Charitable Trust. The admin panel enables the organization to manage website content and donation-related data efficiently.",
+      "Developed a full-scale immigration consultancy platform with real-time communication and secure dashboards.",
     responsibilities: [
-      "Built a custom admin dashboard for content management",
-      "Managed NGO details, pages, and dynamic content",
-      "Viewed and managed donation/payment records",
-      "Integrated Razorpay donation data into admin panel",
-      "Implemented responsive and user-friendly Website UI",
+      "Built separate User and Agent portals with secure role-based authentication",
+      "Integrated real-time one-on-one chat system using Socket.io with file sharing",
+      "Implemented Google OAuth authentication for seamless login experience",
+      "Managed complex global state using Redux Toolkit",
+      "Improved UI responsiveness and frontend performance",
     ],
     technologies: [
       "React.js",
-      "Tailwind CSS",
-      "React Router",
-      "Razorpay Payment Gateway",
-      "JavaScript (ES6)",
+      "Redux Toolkit",
+      "Bootstrap 5",
+      "SCSS",
+      "Axios",
+      "Socket.io",
+      "Google OAuth",
     ],
   },
 ];
@@ -264,8 +79,8 @@ const ExperienceCard = ({
       ref={ref}
       initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="relative pl-8 md:pl-12"
+      transition={{ duration: 0.8, delay: index * 0.2 }}
+      className="relative pl-6 md:pl-12 group"
     >
       {/* Timeline Line */}
       <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent" />
@@ -275,102 +90,114 @@ const ExperienceCard = ({
         initial={{ scale: 0 }}
         animate={isInView ? { scale: 1 } : {}}
         transition={{ duration: 0.4, delay: index * 0.2 + 0.3, type: "spring" }}
-        className="absolute left-0 top-8 w-4 h-4 -translate-x-1/2 rounded-full bg-primary shadow-lg"
-        style={{ boxShadow: "0 0 20px hsl(174, 72%, 56%, 0.5)" }}
+        className="absolute left-0 top-6 w-3 h-3 -translate-x-1/2 rounded-full bg-primary shadow-lg"
+        style={{ boxShadow: "0 0 15px hsl(174, 72%, 56%, 0.4)" }}
       >
         <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-30" />
       </motion.div>
 
       {/* Card */}
       <div
-        className={`glass-card rounded-xl overflow-hidden transition-all duration-500 ${
+        className={`glass-card rounded-2xl border transition-all duration-500 overflow-hidden ${
           isExpanded
-            ? "border-primary/30"
-            : "border-border hover:border-primary/20"
+            ? "border-primary/30 bg-primary/5"
+            : "border-white/5 hover:border-primary/20"
         }`}
       >
-        {/* Header - Always visible */}
+        {/* Header Content */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full p-6 text-left flex items-start justify-between gap-4"
+          className="w-full p-5 text-left flex items-start justify-between gap-4"
         >
           <div className="flex-1">
-            <div className="flex items-center gap-3 text-primary mb-2">
-              <Building2 size={18} />
-              <span className="font-semibold uppercase tracking-wider text-sm">
-                {experience.company}
-              </span>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-primary mb-3">
+              <div className="flex items-center gap-2">
+                <Building2 size={16} />
+                <span className="font-bold text-xs uppercase tracking-[0.1em]">
+                  {experience.company}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-white/40">
+                <Briefcase size={14} />
+                <span className="text-[10px] uppercase font-medium">
+                  {experience.employmentType}
+                </span>
+              </div>
             </div>
-            <h3 className="text-xl md:text-2xl font-display font-bold mb-2">
+
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
               {experience.role}
             </h3>
-            <div className="flex items-center gap-2 text-muted-foreground text-sm">
-              <Calendar size={14} />
-              <span>{experience.period}</span>
+
+            <div className="flex flex-wrap items-center gap-3 text-white/50 text-xs">
+              <div className="flex items-center gap-1.5">
+                <Calendar size={12} className="text-primary/60" />
+                <span>{experience.period}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <MapPin size={12} className="text-primary/60" />
+                <span>{experience.location}</span>
+              </div>
             </div>
           </div>
+
           <motion.div
             animate={{ rotate: isExpanded ? 180 : 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-2"
+            className={`p-1.5 rounded-full mt-1 ${isExpanded ? "bg-primary/10" : ""}`}
           >
-            <ChevronDown className="w-6 h-6 text-primary" />
+            <ChevronDown
+              className={`w-5 h-5 ${isExpanded ? "text-primary" : "text-white/20"}`}
+            />
           </motion.div>
         </button>
 
-        {/* Expandable Content */}
+        {/* Expandable Section */}
         <motion.div
           initial={false}
-          animate={{
-            height: isExpanded ? "auto" : 0,
-            opacity: isExpanded ? 1 : 0,
-          }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
+          animate={{ height: isExpanded ? "auto" : 0 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           className="overflow-hidden"
         >
-          <div className="px-6 pb-6">
-            <p className="text-muted-foreground mb-6 leading-relaxed">
+          <div className="px-5 md:px-6 pb-6 pt-1 border-t border-white/5">
+            <p className="text-white/60 mb-6 leading-relaxed text-sm md:text-base">
               {experience.description}
             </p>
 
-            {/* Key Responsibilities */}
-            <div className="mb-6">
-              <h4 className="font-display font-semibold text-primary mb-3">
-                Key Responsibilities
-              </h4>
-              <ul className="space-y-2">
-                {experience.responsibilities.map((responsibility, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={isExpanded ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.3, delay: i * 0.1 }}
-                    className="flex items-start gap-3 text-sm text-muted-foreground"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    {responsibility}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Responsibilities */}
+              <div>
+                <h4 className="text-[11px] font-bold text-primary uppercase tracking-widest mb-3">
+                  Key Achievements
+                </h4>
+                <ul className="space-y-2">
+                  {experience.responsibilities.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 text-sm text-white/50"
+                    >
+                      <span className="w-1 h-1 rounded-full bg-primary/50 mt-1.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* Technologies */}
-            <div>
-              <h4 className="font-display font-semibold text-primary mb-3">
-                Technologies Used
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {experience.technologies.map((tech, i) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isExpanded ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.3, delay: i * 0.05 }}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
+              {/* Stack */}
+              <div>
+                <h4 className="text-[11px] font-bold text-primary uppercase tracking-widest mb-3">
+                  Core Technologies
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {experience.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-medium text-white/70 hover:border-primary/30 hover:text-primary transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -382,28 +209,45 @@ const ExperienceCard = ({
 
 export const ExperienceSection = () => {
   return (
-    <section id="experience" className="py-24 relative">
-      <div className="container mx-auto px-6">
+    <section id="experience" className="py-20 relative">
+      <div className="section-container">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <span className="text-primary text-sm font-semibold tracking-wider uppercase">
-            Experience
-          </span>
-          <h2 className="text-3xl md:text-4xl font-display font-bold mt-3">
-            Building modern web applications and
-            <br />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border-primary/20 mb-6"
+          >
+            <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
+            <span className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">
+              Experience
+            </span>
+          </motion.div>
+
+          <h2 className="text-2xl md:text-3xl font-extrabold mt-3 leading-tight">
+            Building modern web applications and <br className="hidden md:block" />
             <span className="gradient-text">solving real-world problems</span>
           </h2>
+
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: 80 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="h-1.5 bg-gradient-to-r from-primary/60 to-transparent rounded-full mx-auto mt-8"
+          />
         </motion.div>
 
         {/* Experience Timeline */}
-        <div className="max-w-3xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-12">
           {experiences.map((experience, index) => (
             <ExperienceCard
               key={experience.company}

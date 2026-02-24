@@ -1,9 +1,17 @@
-import { motion } from "framer-motion";
-import { Mail, Phone, Send, MapPin } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  Send,
+  MapPin,
+  User,
+  MessageSquare,
+  AlertCircle,
+} from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-gsap-toast";
 
 type FormData = {
   name: string;
@@ -34,6 +42,10 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
+
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
@@ -82,7 +94,7 @@ const ContactSection = () => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { id, value } = e.target;
     const field = id as keyof FormData;
@@ -95,7 +107,7 @@ const ContactSection = () => {
   };
 
   const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { id, value } = e.target;
     const field = id as keyof FormData;
@@ -107,12 +119,27 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      toast({
-        title: "Validation Error",
-        description: "Please fix the errors in the form",
-        variant: "destructive",
-      });
+    const newErrors: FormErrors = {};
+    let firstErrorField: keyof FormData | null = null;
+
+    Object.keys(formData).forEach((key) => {
+      const field = key as keyof FormData;
+      const error = validateField(field, formData[field]);
+      if (error) {
+        newErrors[field] = error;
+        if (!firstErrorField) firstErrorField = field;
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.error("Please fix the errors in the form before submitting.");
+
+      // Auto focus the first field with an error
+      if (firstErrorField === "name") nameRef.current?.focus();
+      else if (firstErrorField === "email") emailRef.current?.focus();
+      else if (firstErrorField === "message") messageRef.current?.focus();
+
       return;
     }
 
@@ -132,14 +159,11 @@ const ContactSection = () => {
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
         templateParams,
-        EMAILJS_CONFIG.PUBLIC_KEY
+        EMAILJS_CONFIG.PUBLIC_KEY,
       );
 
       if (response.status === 200) {
-        toast({
-          title: "Message sent successfully!",
-          description: "Thank you for reaching out. I'll get back to you soon!",
-        });
+        toast.success("Message sent successfully! I'll get back to you soon.");
 
         setFormData({
           name: "",
@@ -152,11 +176,7 @@ const ContactSection = () => {
       }
     } catch (error) {
       console.error("Email sending error:", error);
-      toast({
-        title: "Failed to send message",
-        description: "Please try again later or contact me directly via email.",
-        variant: "destructive",
-      });
+      toast.error("Failed to send message. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
@@ -176,21 +196,21 @@ const ContactSection = () => {
         className="absolute bottom-0 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl"
       />
 
-      <div className="container mx-auto px-6 relative z-10" ref={ref}>
+      <div className="section-container relative z-10" ref={ref}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase">
+          <span className="text-primary text-xs font-medium tracking-wider uppercase">
             Contact
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <h2 className="text-2xl md:text-3xl font-bold mt-2">
             Let's <span className="gradient-text">Connect</span>
           </h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-sm">
             Have a project in mind or want to collaborate? I'd love to hear from
             you!
           </p>
@@ -262,7 +282,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Location</p>
-                  <p className="font-medium">India</p>
+                  <p className="font-medium">Surat, Gujarat, India</p>
                 </div>
               </motion.div>
             </div>
@@ -273,39 +293,63 @@ const ContactSection = () => {
             initial={{ opacity: 0, x: 40 }}
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
+            className="glass-card p-6 rounded-3xl border-white/5 relative overflow-hidden bg-transparent"
           >
-            <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full -mr-16 -mt-16" />
+            <h3 className="text-2xl font-bold mb-8 relative z-10">
+              Send a Message
+            </h3>
+
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 relative z-10"
+              noValidate
+            >
               {/* Name Input */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 }}
               >
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-[11px] font-bold text-primary/60 uppercase tracking-widest mb-2 ml-1">
                   Name <span className="text-primary">*</span>
                 </label>
-                <input
-                  id="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  onBlur={handleBlur}
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? "name-error" : undefined}
-                  className={`w-full px-4 py-3 bg-secondary/50 rounded-lg focus:outline-none transition-all ${
-                    errors.name
-                      ? "border-destructive focus:border-destructive focus:ring-destructive"
-                      : "border border-border focus:border-primary focus:ring-1 focus:ring-primary"
-                  }`}
-                  placeholder="Your name"
-                />
-                {errors.name && (
-                  <p id="name-error" className="text-sm text-destructive mt-1">
-                    {errors.name}
-                  </p>
-                )}
+                <div className="relative group">
+                  <div
+                    className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${errors.name ? "text-destructive" : "text-primary/40 group-focus-within:text-primary"}`}
+                  >
+                    <User size={18} />
+                  </div>
+                  <input
+                    id="name"
+                    ref={nameRef}
+                    type="text"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "name-error" : undefined}
+                    className={`w-full pl-12 pr-4 py-3.5 bg-secondary/30 rounded-2xl focus:outline-none transition-all text-sm border ${
+                      errors.name
+                        ? "border-destructive/50 bg-destructive/5 focus:border-destructive shadow-[0_0_15px_rgba(239,68,68,0.1)]"
+                        : "border-white/5 focus:border-primary/50 focus:bg-secondary/50 focus:shadow-[0_0_20px_rgba(0,255,255,0.1)]"
+                    }`}
+                    placeholder="Your name"
+                  />
+                </div>
+                <AnimatePresence>
+                  {errors.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-1.5 text-[11px] font-medium text-destructive mt-2 ml-1"
+                    >
+                      <AlertCircle size={12} />
+                      <span id="name-error">{errors.name}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* Email Input */}
@@ -314,30 +358,45 @@ const ContactSection = () => {
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.5 }}
               >
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-[11px] font-bold text-primary/60 uppercase tracking-widest mb-2 ml-1">
                   Email <span className="text-primary">*</span>
                 </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  onBlur={handleBlur}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                  className={`w-full px-4 py-3 bg-secondary/50 rounded-lg focus:outline-none transition-all ${
-                    errors.email
-                      ? "border-destructive focus:border-destructive focus:ring-destructive"
-                      : "border border-border focus:border-primary focus:ring-1 focus:ring-primary"
-                  }`}
-                  placeholder="your@email.com"
-                />
-                {errors.email && (
-                  <p id="email-error" className="text-sm text-destructive mt-1">
-                    {errors.email}
-                  </p>
-                )}
+                <div className="relative group">
+                  <div
+                    className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${errors.email ? "text-destructive" : "text-primary/40 group-focus-within:text-primary"}`}
+                  >
+                    <Mail size={18} />
+                  </div>
+                  <input
+                    id="email"
+                    ref={emailRef}
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    className={`w-full pl-12 pr-4 py-3.5 bg-secondary/30 rounded-2xl focus:outline-none transition-all text-sm border ${
+                      errors.email
+                        ? "border-destructive/50 bg-destructive/5 focus:border-destructive shadow-[0_0_15px_rgba(239,68,68,0.1)]"
+                        : "border-white/5 focus:border-primary/50 focus:bg-secondary/50 focus:shadow-[0_0_20px_rgba(0,255,255,0.1)]"
+                    }`}
+                    placeholder="your@email.com"
+                  />
+                </div>
+                <AnimatePresence>
+                  {errors.email && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-1.5 text-[11px] font-medium text-destructive mt-2 ml-1"
+                    >
+                      <AlertCircle size={12} />
+                      <span id="email-error">{errors.email}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* Message Input */}
@@ -346,44 +405,56 @@ const ContactSection = () => {
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.6 }}
               >
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-[11px] font-bold text-primary/60 uppercase tracking-widest mb-2 ml-1">
                   Message <span className="text-primary">*</span>
                 </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={5}
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  onBlur={handleBlur}
-                  aria-invalid={!!errors.message}
-                  aria-describedby={
-                    errors.message ? "message-error" : undefined
-                  }
-                  className={`w-full px-4 py-3 bg-secondary/50 rounded-lg focus:outline-none transition-all resize-none ${
-                    errors.message
-                      ? "border-destructive focus:border-destructive focus:ring-destructive"
-                      : "border border-border focus:border-primary focus:ring-1 focus:ring-primary"
-                  }`}
-                  placeholder="Your message..."
-                />
-                {errors.message && (
-                  <p
-                    id="message-error"
-                    className="text-sm text-destructive mt-1"
+                <div className="relative group">
+                  <div
+                    className={`absolute left-4 top-5 transition-colors duration-300 ${errors.message ? "text-destructive" : "text-primary/40 group-focus-within:text-primary"}`}
                   >
-                    {errors.message}
-                  </p>
-                )}
+                    <MessageSquare size={18} />
+                  </div>
+                  <textarea
+                    id="message"
+                    ref={messageRef}
+                    rows={4}
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    aria-invalid={!!errors.message}
+                    aria-describedby={
+                      errors.message ? "message-error" : undefined
+                    }
+                    className={`w-full pl-12 pr-4 py-3.5 bg-secondary/30 rounded-2xl focus:outline-none transition-all resize-none text-sm border ${
+                      errors.message
+                        ? "border-destructive/50 bg-destructive/5 focus:border-destructive shadow-[0_0_15px_rgba(239,68,68,0.1)]"
+                        : "border-white/5 focus:border-primary/50 focus:bg-secondary/50 focus:shadow-[0_0_20px_rgba(0,255,255,0.1)]"
+                    }`}
+                    placeholder="Your message..."
+                  />
+                </div>
+                <AnimatePresence>
+                  {errors.message && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-1.5 text-[11px] font-medium text-destructive mt-0 ml-1"
+                    >
+                      <AlertCircle size={12} />
+                      <span id="message-error">{errors.message}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* Submit Button */}
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02, translateY: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold animate-pulse-glow disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-primary text-primary-foreground rounded-2xl font-bold transition-all shadow-[0_10px_30px_rgba(0,255,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed text-sm uppercase tracking-widest"
               >
                 {isSubmitting ? (
                   <motion.div
